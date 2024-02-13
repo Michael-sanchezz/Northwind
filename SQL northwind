@@ -1,0 +1,92 @@
+-- 1.Select all the records from the customers table. 
+select * 
+from customers;
+
+-- 2.Get distinct countries from the customers table.
+select distinct country
+from customers
+
+-- 3.Get all the records from the table customers where the customer_id starts with “BL”.
+select customer_id
+from customers 
+where customer_id like 'BL_%'
+-- 4.Get the first 100 records of the orders table.
+select *
+from orders
+limit 100
+-- 5.Get all customers that live in the postal codes 1010, 3012, 12209, and 05023.
+select *
+from customers 
+where postal_code in ('1010','3012', '12209', '05023');
+-- 6.Get all orders where the ShipRegion is not equal to NULL.
+select *
+from orders
+where ship_region is not null
+-- 7,Get all customers ordered by the country, then by the city.
+select country,city
+from customers
+-- 8.Add a new customer to the customers table. You can use whatever values/
+insert into customers(customer_id, company_name, contact_name, contact_title, address, city, region, postal_code, country, phone, fax)
+values('ZAEFA', 'Grand Circus', 'Tom Holland', 'Salesman', '123 bonobo land', 'Flushing', 'NY', '19332', 'USA', '3479218080', '9232318732');
+select *
+from customers 
+-- 9.Update all ship_region to the value 'EuroZone' in the orders table, where the ship_country is 'France'.  
+update orders
+set ship_region = 'EuroZone'
+where ship_country = 'France'
+select *
+from orders
+-- 10.Delete all rows from order_details that have a quantity of 1. 
+select *
+from order_details
+delete from order_details
+where quantity = '1'
+-- 11.Calculate the average, max, and min of the quantity in the order_details table.
+select avg(quantity),min(quantity),max(quantity)
+from order_details
+-- 12.Calculate the average, max, and min of the quantity in the order_details table, grouped by the order_id. 
+select avg(quantity),min(quantity),max(quantity)
+from order_details
+group by order_id
+-- 13.Find the customer_id that placed order 10290 (orders table)
+select customer_id
+from orders
+where order_id = '10290';
+-- 14.Do an inner join, left join, right join on orders and customers tables.  (These are three separate queries, one for each type of join.)
+select employee_id, order_date
+from orders
+inner join customers on orders.customer_id = customers.customer_id;
+
+select employee_id, order_date
+from orders
+left join customers on orders.customer_id = customers.customer_id;
+
+select employee_id, order_date
+from orders
+right join customers on orders.customer_id = customers.customer_id;
+-- 15.Use a join to get the ship_city and ship_country of all the orders which are associated with an employee who is in London.
+SELECT o.ship_city, o.ship_country
+FROM orders o
+JOIN employees e ON o.employee_id = e.employee_id
+WHERE e.city = 'London';
+
+-- 16.Use a join to get the ship_name of all orders that include a discontinued product. (See orders, order_details, and products. 1 means discontinued.)
+SELECT DISTINCT o.ship_name
+FROM orders o
+JOIN order_details od ON o.order_id = od.order_id
+JOIN products p ON od.product_id = p.product_id
+WHERE p.discontinued = 1;
+
+-- 17.Get first names of all employees who report to no one.
+select *
+from employees
+
+SELECT first_name
+FROM employees
+WHERE reports_to IS NULL;
+-- 18.Get first names of all employees who report to 'Andrew'.
+SELECT first_name
+FROM employees
+WHERE reports_to = 2;
+
+
