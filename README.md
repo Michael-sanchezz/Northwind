@@ -1,1 +1,1 @@
-SQL Intro LAb
+SQL Intro Lab
